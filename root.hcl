@@ -5,18 +5,29 @@
 # across all environments and regions.
 
 # =============================================================================
+# TERRAGRUNT VERSION CONSTRAINT
+# =============================================================================
+terragrunt_version_constraint = ">= 0.84.0"
+
+# =============================================================================
 # KMS DEPENDENCY FOR SECURE STATE ENCRYPTION
 # =============================================================================
 dependency "kms" {
   config_path = "./kms"
   
   mock_outputs = {
-    terragrunt_state_key_arn = "arn:aws:kms:eu-west-1:123456789012:key/12345678-1234-1234-1234-123456789012"
-    terragrunt_state_key_id  = "12345678-1234-1234-1234-123456789012"
+    terragrunt_state_key_arn = "arn:aws:kms:eu-west-1:${local.aws_account_id}:key/mock-key-id"
+    terragrunt_state_key_id  = "mock-key-id"
+    ebs_key_arn             = "arn:aws:kms:eu-west-1:${local.aws_account_id}:key/mock-ebs-key"
+    rds_key_arn             = "arn:aws:kms:eu-west-1:${local.aws_account_id}:key/mock-rds-key"
+    s3_key_arn              = "arn:aws:kms:eu-west-1:${local.aws_account_id}:key/mock-s3-key"
+    secrets_manager_key_arn = "arn:aws:kms:eu-west-1:${local.aws_account_id}:key/mock-secrets-key"
+    cloudwatch_logs_key_arn = "arn:aws:kms:eu-west-1:${local.aws_account_id}:key/mock-logs-key"
   }
   
   mock_outputs_allowed_terraform_commands = ["validate", "plan", "init"]
   mock_outputs_merge_strategy_with_state  = "shallow"
+  validate_outputs = true
   
   # Skip dependency for KMS module itself to avoid circular dependency
   skip = get_env("TERRAGRUNT_WORKING_DIR", "") == "${get_parent_terragrunt_dir()}/kms"
@@ -34,7 +45,10 @@ locals {
   environment    = local.env_vars.locals.environment
   
   # KMS key for state encryption (with fallback for KMS module itself)
-  terragrunt_state_key_arn = try(dependency.kms.outputs.terragrunt_state_key_arn, "alias/terragrunt-state-key")
+  terragrunt_state_key_arn = try(
+    dependency.kms.outputs.terragrunt_state_key_arn,
+    "alias/aws/s3"  # AWS managed key as fallback for initial deployment
+  )
   
   # S3 bucket names for state and audit logging
   state_bucket_name = "katyacleaning-terragrunt-state-${local.aws_account_id}"
@@ -186,6 +200,14 @@ terraform {
       source  = "hashicorp/tls"
       version = "~> 4.0"
     }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 3.2"
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = "~> 0.11"
+    }
   }
 }
 
@@ -220,6 +242,45 @@ provider "random" {}
 # TLS provider for certificate generation
 provider "tls" {}
 EOF
+}
+
+# =============================================================================
+# SECURITY HOOKS AND VALIDATION
+# =============================================================================
+
+# Pre-deployment security scan
+before_hook "security_scan" {
+  commands     = ["apply", "plan"]
+  execute      = ["bash", "${get_repo_root()}/scripts/security-validation.sh", "pre-deploy"]
+  run_on_error = false
+}
+
+# Pre-deployment compliance check
+before_hook "compliance_check" {
+  commands     = ["apply", "plan"]
+  execute      = ["bash", "${get_repo_root()}/scripts/security-validation.sh", "pre-deploy"]
+  run_on_error = false
+}
+
+# Cost estimation before deployment
+before_hook "cost_estimation" {
+  commands     = ["plan"]
+  execute      = ["bash", "${get_repo_root()}/scripts/security-validation.sh", "pre-deploy"]
+  run_on_error = false
+}
+
+# Post-deployment security validation
+after_hook "security_validation" {
+  commands     = ["apply"]
+  execute      = ["bash", "${get_repo_root()}/scripts/security-validation.sh", "post-deploy"]
+  run_on_error = true
+}
+
+# Post-deployment compliance report
+after_hook "compliance_report" {
+  commands     = ["apply"]
+  execute      = ["bash", "${get_repo_root()}/scripts/security-validation.sh", "post-deploy"]
+  run_on_error = true
 }
 
 # =============================================================================
@@ -296,8 +357,16 @@ inputs = {
   # Cost optimization
   enable_cost_optimization = true
   
+  # Budget controls
+  budget_limit = local.account_vars.locals.budget_limit
+  cost_alerts  = local.account_vars.locals.cost_alerts
+  
   # Compliance and security
   compliance_framework = "SOC2"
   encryption_at_rest  = true
   encryption_in_transit = true
+  
+  # Performance optimization
+  enable_parallelism = true
+  max_parallelism = 10
 }

@@ -5,10 +5,10 @@
 # regions and environments within this AWS account.
 
 locals {
-  # AWS Account Configuration
-  aws_account_id   = "123456789012"  # Replace with actual account ID
-  aws_account_name = "katyacleaning-production"
-  aws_account_role = "arn:aws:iam::123456789012:role/TerragruntExecutionRole"
+  # AWS Account Configuration - Dynamic resolution
+  aws_account_id   = get_env("AWS_ACCOUNT_ID", run_cmd("aws", "sts", "get-caller-identity", "--query", "Account", "--output", "text"))
+  aws_account_name = get_env("AWS_ACCOUNT_NAME", "katyacleaning-production")
+  aws_account_role = get_env("AWS_ACCOUNT_ROLE", "arn:aws:iam::${local.aws_account_id}:role/TerragruntExecutionRole")
   
   # Organization and billing
   organization_unit = "Production"

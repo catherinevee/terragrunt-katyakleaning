@@ -1,0 +1,390 @@
+# =============================================================================
+# ENVIRONMENT VARIABLES TEMPLATE FOR TERRAGRUNT-KATYAKLEANING
+# =============================================================================
+# Copy this file to .env and fill in your actual values
+# This file contains all required environment variables for secure operation
+
+# AWS Account Configuration
+AWS_ACCOUNT_ID=123456789012
+AWS_ACCOUNT_NAME=katyacleaning-production
+AWS_ACCOUNT_ROLE=arn:aws:iam::123456789012:role/TerragruntExecutionRole
+
+# AWS Credentials (if not using IAM roles)
+AWS_ACCESS_KEY_ID=your-access-key-id
+AWS_SECRET_ACCESS_KEY=your-secret-access-key
+AWS_SESSION_TOKEN=your-session-token  # Optional, for temporary credentials
+
+# AWS Region Configuration
+AWS_REGION=eu-west-1
+AWS_DEFAULT_REGION=eu-west-1
+
+# Terragrunt Configuration
+TERRAGRUNT_VERSION=0.84.0
+TERRAFORM_VERSION=1.13.0
+
+# Security Configuration
+TERRAGRUNT_IAM_ROLE=arn:aws:iam::123456789012:role/TerragruntExecutionRole
+TERRAGRUNT_IAM_SESSION_NAME=TerragruntSession
+
+# Compliance Configuration
+COMPLIANCE_FRAMEWORK=SOC2,PCI-DSS
+DATA_RESIDENCY=EU
+GDPR_COMPLIANT=true
+
+# Cost Management
+MONTHLY_BUDGET_LIMIT=1000
+COST_ALERT_THRESHOLDS=500,750,900
+
+# Monitoring Configuration
+CLOUDWATCH_LOG_RETENTION_DAYS=90
+ENABLE_DETAILED_MONITORING=true
+ENABLE_XRAY=true
+
+# Backup Configuration
+BACKUP_RETENTION_DAYS=30
+CROSS_REGION_BACKUP=true
+DR_REGION=eu-west-2
+
+# Security Tools Configuration
+TFSEC_VERSION=v1.28.4
+CHECKOV_VERSION=2.3.178
+TRIVY_VERSION=0.48.4
+INFRACOST_VERSION=0.10.35
+
+# Notification Configuration
+SECURITY_EMAIL=security@katyacleaning.com
+INFRASTRUCTURE_EMAIL=infrastructure@katyacleaning.com
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your-channel
+PAGERDUTY_SERVICE_KEY=your-pagerduty-service-key
+
+# Development Configuration
+ENVIRONMENT=dev
+ENABLE_DEBUG_LOGGING=true
+ENABLE_TEST_FEATURES=true
+
+# Network Configuration
+VPC_CIDR=10.1.0.0/16
+ENABLE_NAT_GATEWAY=true
+SINGLE_NAT_GATEWAY=true
+
+# Database Configuration
+DATABASE_INSTANCE_CLASS=db.t3.micro
+DATABASE_ENGINE_VERSION=15.4
+DATABASE_ALLOCATED_STORAGE=20
+
+# Application Configuration
+APP_NAME=katyacleaning-dev
+APP_VERSION=dev-latest
+CONTAINER_PORT=8080
+
+# SSL/TLS Configuration
+SSL_POLICY=ELBSecurityPolicy-TLS-1-2-2017-01
+FORCE_SSL=true
+MINIMUM_TLS_VERSION=TLSv1.2
+
+# Access Control Configuration
+SSH_KEY_NAME=katyacleaning-dev-keypair
+SSH_ALLOWED_CIDRS=203.0.113.0/24
+ALLOWED_CIDR_BLOCKS=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+
+# Domain Configuration
+PRIMARY_DOMAIN=dev.katyacleaning.com
+API_DOMAIN=api-dev.katyacleaning.com
+ADMIN_DOMAIN=admin-dev.katyacleaning.com
+
+# Testing Configuration
+ENABLE_LOAD_TESTING=true
+ENABLE_CHAOS_ENGINEERING=true
+ENABLE_INTEGRATION_TESTS=true
+MAX_TEST_USERS=100
+
+# Development Tools Configuration
+ENABLE_SWAGGER_UI=true
+ENABLE_GRAPHQL_PLAYGROUND=true
+ENABLE_DEBUG_TOOLBAR=true
+ENABLE_CODE_COVERAGE=true
+
+# Security Scanning Configuration
+ENABLE_AUTOMATED_SCANNING=true
+SCAN_FREQUENCY=weekly
+SCAN_SCHEDULE=cron(0 2 * * SUN)
+
+# Incident Response Configuration
+CRITICAL_RESPONSE_TIME_MINUTES=15
+HIGH_RESPONSE_TIME_MINUTES=60
+MEDIUM_RESPONSE_TIME_MINUTES=240
+LOW_RESPONSE_TIME_MINUTES=1440
+
+# Logging Configuration
+LOG_LEVEL=INFO
+LOG_RETENTION_DAYS=30
+ENABLE_STRUCTURED_LOGGING=true
+
+# Performance Configuration
+ENABLE_PARALLELISM=true
+MAX_PARALLELISM=10
+ENABLE_CACHING=true
+
+# Disaster Recovery Configuration
+ENABLE_AUTOMATED_BACKUPS=true
+BACKUP_WINDOW=06:00-07:00
+MAINTENANCE_WINDOW=sun:07:00-sun:08:00
+
+# Cost Optimization Configuration
+ENABLE_SPOT_INSTANCES=true
+ENABLE_RESERVED_INSTANCES=false
+ENABLE_SAVINGS_PLANS=false
+ENABLE_LIFECYCLE_POLICIES=true
+
+# Compliance Monitoring Configuration
+ENABLE_AUDIT_LOGGING=true
+ENABLE_COMPLIANCE_REPORTING=true
+ENABLE_SECURITY_SCANNING=true
+ENABLE_VULNERABILITY_SCANNING=true
+
+# Network Security Configuration
+ENABLE_VPC_FLOW_LOGS=true
+ENABLE_NETWORK_ACL=true
+ENABLE_SECURITY_GROUPS=true
+ENABLE_WAF=true
+ENABLE_GUARDDUTY=true
+ENABLE_CONFIG=true
+ENABLE_CLOUDTRAIL=true
+ENABLE_SECURITY_HUB=true
+
+# Encryption Configuration
+ENCRYPTION_AT_REST=true
+ENCRYPTION_IN_TRANSIT=true
+KMS_KEY_ROTATION=true
+ROTATION_DAYS=365
+
+# Access Control Configuration
+PRINCIPLE_OF_LEAST_PRIVILEGE=true
+ROLE_BASED_ACCESS_CONTROL=true
+SESSION_TIMEOUT_MINUTES=60
+MAX_SESSION_DURATION_HOURS=12
+REQUIRE_MFA=true
+
+# Password Policy Configuration
+PASSWORD_MINIMUM_LENGTH=12
+PASSWORD_REQUIRE_UPPERCASE=true
+PASSWORD_REQUIRE_LOWERCASE=true
+PASSWORD_REQUIRE_NUMBERS=true
+PASSWORD_REQUIRE_SYMBOLS=true
+PASSWORD_PREVENT_REUSE=24
+PASSWORD_MAX_AGE_DAYS=90
+
+# Account Lockout Configuration
+MAX_FAILED_ATTEMPTS=5
+LOCKOUT_DURATION_MINUTES=30
+RESET_AFTER_HOURS=24
+
+# Session Policy Configuration
+MAX_SESSION_DURATION=43200
+IDLE_TIMEOUT_MINUTES=60
+REQUIRE_MFA=true
+
+# Monitoring and Alerting Configuration
+CPU_ALARM_THRESHOLD=80
+MEMORY_ALARM_THRESHOLD=85
+DISK_ALARM_THRESHOLD=90
+NETWORK_ERRORS_THRESHOLD=5
+RESPONSE_TIME_THRESHOLD=5.0
+
+# Security Monitoring Configuration
+FAILED_LOGIN_ATTEMPTS_THRESHOLD=10
+UNAUTHORIZED_ACCESS_THRESHOLD=1
+CONFIGURATION_CHANGES_THRESHOLD=5
+ENCRYPTION_EVENTS_THRESHOLD=1
+
+# Compliance Monitoring Configuration
+BACKUP_FAILURES_THRESHOLD=1
+PATCH_COMPLIANCE_THRESHOLD=95
+SECURITY_SCAN_FAILURES_THRESHOLD=1
+AUDIT_LOG_FAILURES_THRESHOLD=1
+
+# Notification Channels Configuration
+EMAIL_RECIPIENTS=security@katyacleaning.com,infrastructure@katyacleaning.com
+EMAIL_SUBJECT_PREFIX=[SECURITY ALERT]
+SLACK_CHANNEL=#security-alerts
+SLACK_USERNAME=Security Bot
+PAGERDUTY_ESCALATION_POLICY=security-team
+
+# Vulnerability Scanning Configuration
+VULNERABILITY_SCAN_TOOLS=tfsec,checkov,trivy,snyk
+PENETRATION_TEST_FREQUENCY=quarterly
+EXTERNAL_TESTING=true
+INTERNAL_TESTING=true
+
+# Security Tools Configuration
+ENABLE_GUARDDUTY=true
+ENABLE_SECURITY_HUB=true
+ENABLE_CONFIG=true
+ENABLE_CLOUDTRAIL=true
+ENABLE_VPC_FLOW_LOGS=true
+ENABLE_NETWORK_FIREWALL=false
+
+# Cost Controls Configuration
+ENABLE_BUDGET_ALERTS=true
+MONTHLY_BUDGET_LIMIT=1000
+ALERT_THRESHOLDS=500,750,900
+ENABLE_COST_OPTIMIZATION=true
+ENABLE_SAVINGS_PLANS=false
+ENABLE_RESERVED_INSTANCES=false
+
+# Backup and DR Configuration
+BACKUP_SCHEDULE=cron(0 6 * * ? *)
+BACKUP_RETENTION_DAYS=7
+CROSS_REGION_BACKUP=false
+BACKUP_DESTINATION=eu-west-2
+POINT_IN_TIME_RECOVERY=false
+
+# Development Tools Configuration
+ENABLE_TEST_DATABASE=true
+ENABLE_SEED_DATA=true
+RESET_DB_ON_DEPLOY=true
+ENABLE_HOT_RELOAD=true
+ENABLE_PROFILING=true
+ENABLE_TEST_ROUTES=true
+MOCK_EXTERNAL_APIS=true
+
+# Feature Flags Configuration
+NEW_UI_COMPONENTS=true
+EXPERIMENTAL_API=true
+ADVANCED_ANALYTICS=true
+BETA_FEATURES=true
+
+# Network Configuration
+ENABLE_VPN_GATEWAY=false
+ENABLE_DNS_HOSTNAMES=true
+ENABLE_DNS_SUPPORT=true
+FLOW_LOG_MAX_AGGREGATION_INTERVAL=600
+
+# Testing Configuration
+LOAD_TEST_SCHEDULE=cron(0 1 * * SAT)
+TEST_DURATION_MINUTES=30
+TEST_DATA_REFRESH_SCHEDULE=cron(0 2 * * SUN)
+
+# Development Access Configuration
+AUTO_START=08:00-MON-FRI
+AUTO_STOP=19:00-MON-FRI
+WEEKEND_SHUTDOWN=true
+TEST_ENVIRONMENT=true
+EXPERIMENTAL_FEATURES=enabled
+
+# SSL/TLS Configuration
+SSL_POLICY=ELBSecurityPolicy-TLS-1-2-2017-01
+FORCE_SSL=true
+MINIMUM_TLS_VERSION=TLSv1.2
+
+# Domain Configuration
+TTL_SHORT=60
+TTL_MEDIUM=300
+TTL_LONG=900
+ENABLE_DNSSEC=false
+
+# Application Configuration
+SESSION_TIMEOUT=1800
+MAX_FILE_SIZE=50MB
+DEBUG_MODE=true
+LOG_SQL_QUERIES=true
+
+# Network Configuration
+ENABLE_NAT_GATEWAY=true
+SINGLE_NAT_GATEWAY=true
+ONE_NAT_GATEWAY_PER_AZ=false
+FLOW_LOG_DESTINATION_TYPE=cloud-watch-logs
+
+# Security Configuration
+ENABLE_WAF=true
+ENABLE_SHIELD_ADVANCED=false
+ENABLE_GUARDDUTY=false
+ENABLE_CONFIG=false
+ENABLE_CLOUDTRAIL=true
+ENABLE_SECURITY_HUB=false
+
+# Monitoring Configuration
+ENABLE_DETAILED_MONITORING=false
+LOG_RETENTION_DAYS=30
+ENABLE_XRAY=true
+ENABLE_INSIGHTS=false
+ALERT_EMAIL=dev-alerts@katyacleaning.com
+SLACK_WEBHOOK=https://hooks.slack.com/services/dev-channel
+
+# Backup Configuration
+BACKUP_SCHEDULE=cron(0 6 * * ? *)
+BACKUP_RETENTION_DAYS=7
+CROSS_REGION_BACKUP=false
+BACKUP_DESTINATION=eu-west-2
+POINT_IN_TIME_RECOVERY=false
+
+# Cost Optimization Configuration
+ENABLE_SPOT_INSTANCES=true
+ENABLE_RESERVED_INSTANCES=false
+ENABLE_SAVINGS_PLANS=false
+ENABLE_LIFECYCLE_POLICIES=true
+SCALE_DOWN_SCHEDULE=cron(0 19 * * MON-FRI)
+SCALE_UP_SCHEDULE=cron(0 8 * * MON-FRI)
+WEEKEND_SCALE_DOWN=true
+
+# Domain Configuration
+PRIMARY_DOMAIN=dev.katyacleaning.com
+API_DOMAIN=api-dev.katyacleaning.com
+ADMIN_DOMAIN=admin-dev.katyacleaning.com
+MEDIA_DOMAIN=media-dev.katyacleaning.com
+CDN_DOMAIN=cdn-dev.katyacleaning.com
+ENABLE_HTTPS=true
+CERTIFICATE_ARN=
+
+# Application Configuration
+APP_NAME=katyacleaning-dev
+APP_VERSION=dev-latest
+CONTAINER_PORT=8080
+HEALTH_CHECK_PATH=/health
+SESSION_TIMEOUT=1800
+MAX_FILE_SIZE=50MB
+
+# Development Tools Configuration
+ENABLE_SWAGGER_UI=true
+ENABLE_GRAPHQL_PLAYGROUND=true
+ENABLE_DEBUG_TOOLBAR=true
+ENABLE_PROFILER=true
+ENABLE_QUERY_ANALYZER=true
+ENABLE_CODE_COVERAGE=true
+ENABLE_STATIC_ANALYSIS=true
+ENABLE_SECURITY_SCAN=true
+
+# Testing Configuration
+ENABLE_LOAD_TESTING=true
+ENABLE_CHAOS_ENGINEERING=true
+ENABLE_INTEGRATION_TESTS=true
+ENABLE_E2E_TESTS=true
+ENABLE_TEST_DATA_SEEDING=true
+TEST_DATA_REFRESH_SCHEDULE=cron(0 2 * * SUN)
+LOAD_TEST_SCHEDULE=cron(0 1 * * SAT)
+MAX_TEST_USERS=100
+TEST_DURATION_MINUTES=30
+
+# Development Access Configuration
+AUTO_START=08:00-MON-FRI
+AUTO_STOP=19:00-MON-FRI
+WEEKEND_SHUTDOWN=true
+TEST_ENVIRONMENT=true
+EXPERIMENTAL_FEATURES=enabled
+
+# Environment-specific Configuration
+ENVIRONMENT=dev
+ENVIRONMENT_NAME=Development
+CRITICALITY=Low
+SLA=95%
+MAINTENANCE_WINDOW=Sunday 07:00-08:00 GMT
+BACKUP_SCHEDULE=Daily 06:00 GMT
+MONITORING_LEVEL=Basic
+COST_OPTIMIZATION=Aggressive
+SECURITY_LEVEL=Standard
+COMPLIANCE_LEVEL=Basic
+DATA_CLASSIFICATION=Internal
+DISASTER_RECOVERY=Single-AZ
+AUTO_SHUTDOWN=Enabled
+OWNER=Development Team
+PURPOSE=Development and Testing 

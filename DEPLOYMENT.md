@@ -8,7 +8,7 @@ This guide provides step-by-step instructions for deploying the complete AWS inf
 
 ### Required Tools
 - **Terraform**: Version 1.13.0 or higher
-- **Terragrunt**: Latest version
+- **Terragrunt**: Version 0.84.0 or higher
 - **AWS CLI**: Version 2.x configured with appropriate credentials
 - **Git**: For version control
 
